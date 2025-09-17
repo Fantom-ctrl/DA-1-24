@@ -3,7 +3,15 @@ import matplotlib.pyplot as plt
 
 
 def chart(count_frequency):
-    """Построение графика"""
+    """
+    Построение горизонтальной столбчатой диаграммы частоты категориальных значений.
+
+    Аргументы:
+    count_frequency(pandas.Series): Индексы Series — категории, значения — частота в долях
+    
+    Возврат:
+    Функция отображает график, но не возвращает значения.
+    """
     count_frequency.plot(kind="barh", color="blue", edgecolor="black")
     plt.title("Частота значений")
     plt.xlabel("Доля")
