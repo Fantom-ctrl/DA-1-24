@@ -60,6 +60,11 @@ def main():
 
     # Подсчитываем частоту
     count_frequency = table[column_name].value_counts(normalize=True)
+    
+    # Сохранение данных
+    with open("count_category.txt", "w") as f:
+        for category, value in count_frequency.items():
+            f.write(f"{category} {value}\n")
 
     #Построение графика
     creat_chart(count_frequency)
