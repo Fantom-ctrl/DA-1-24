@@ -25,13 +25,18 @@ def creat_chart(count_frequency: p.Series) -> None:
 
 
 def main():
-    column_name = "Category"
+    column_name = input("Введите название категории: ")
 
     # Создание синтетических данных
-    data = {column_name: 
+    data = {"Colors": 
             ["Blue", "Red", "Green", "Orange",
             "Red", "Red", "Red", "Green",
             "Green", "Blue", "Blue", "Blue"]}
+
+    # Проверка на существование категории
+    if column_name not in data.keys():
+        print("Такой категории нет.")
+        return
     
     # Проверкана то, что словарь не пуст
     if not data:
