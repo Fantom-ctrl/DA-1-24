@@ -26,7 +26,7 @@ def generate_synthetic_data() -> pd.DataFrame:
     return table
 
 
-def create_chart(count_frequency: pd.Series) -> None:
+def create_chart(count_frequency):
     """
     Построение горизонтальной столбчатой диаграммы частоты категориальных значений.
     
