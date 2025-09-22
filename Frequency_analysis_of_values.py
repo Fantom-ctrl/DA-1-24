@@ -2,12 +2,12 @@ import pandas as p
 import matplotlib.pyplot as plt
 
 
-def chart(count_frequency):
+def creat_chart(count_frequency: p.Series) -> None:
     """
     Построение горизонтальной столбчатой диаграммы частоты категориальных значений.
 
     Аргументы:
-    count_frequency(pandas.Series): Индексы Series — категории, значения — частота в долях
+    count_frequency(p.Series): Индексы Series — категории, значения — частота в долях
     
     Возврат:
     Функция отображает график, но не возвращает значения.
@@ -25,8 +25,10 @@ def chart(count_frequency):
 
 
 def main():
+    column_name = "Category"
+
     # Создание синтетических данных
-    data = {"Category": 
+    data = {column_name: 
             ["Blue", "Red", "Green", "Orange",
             "Red", "Red", "Red", "Green",
             "Green", "Blue", "Blue", "Blue"]}
@@ -43,12 +45,17 @@ def main():
     if table.empty:
         print("Таблица пуста")
         return
+    
+    # Проверка существования нужного столбца
+    if column_name not in table.columns:
+        print(f"Ошибка: столбец '{column_name}' отсутствует в данных")
+        return
 
     # Подсчитываем частоту
-    count_frequency = table["Category"].value_counts(normalize=True)
+    count_frequency = table[column_name].value_counts(normalize=True)
 
     #Построение графика
-    chart(count_frequency)
+    creat_chart(count_frequency)
 
 
 if __name__ == "__main__":
