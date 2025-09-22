@@ -9,7 +9,7 @@ def generate_synthetic_data() -> pd.DataFrame:
         Никаких.
     
     Возврат:
-        table (pd.DataFrame) - таблица.
+        table (pd.DataFrame) - таблица или None, если таблица не создалась.
         """
     data = {
         "Colors": ["Blue", "Red", "Green", "Orange", "Red", "Red",
@@ -34,7 +34,7 @@ def create_chart(count_frequency: pd.Series) -> None:
         count_frequency (pd.Series): Индексы Series — категории, значения — частота в долях.
     
     Возврат:
-        tuple: (Figure, Axes)
+        (fig, ax) - кортеж содержащий фигуру и оси.
     """
     # Проверка на правильный тип данных 
     if not isinstance(count_frequency, pd.Series):
