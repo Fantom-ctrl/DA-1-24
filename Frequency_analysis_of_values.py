@@ -34,7 +34,7 @@ def create_chart(count_frequency: pd.Series) -> None:
         count_frequency (pd.Series): Индексы Series — категории, значения — частота в долях.
     
     Возврат:
-        (fig, ax) - кортеж содержащий фигуру и оси.
+        (fig, ax) - кортеж содержащий фигуру и оси или None, если тип данных аргумента не правильный
     """
     # Проверка на правильный тип данных 
     if not isinstance(count_frequency, pd.Series):
@@ -77,9 +77,13 @@ def main():
     count_frequency = table[column_name].value_counts(normalize=True)
     
     # Сохранение данных
-    with open("count_category.txt", "w") as f:
-        for category, value in count_frequency.items():
-            f.write(f"{category} {value}\n")
+    try:
+        with open("count_category.txt", "w") as f:
+            for category, value in count_frequency.items():
+                f.write(f"{category} {value}\n")
+    except IOError as e:
+        print(f"Ошибка при сохранении файла: {e}")
+        return
 
     # Построение графика
     fig, ax = create_chart(count_frequency)
