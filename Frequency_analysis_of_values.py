@@ -34,7 +34,7 @@ def create_chart(count_frequency: pd.Series) -> None:
         count_frequency (pd.Series): Индексы Series — категории, значения — частота в долях.
     
     Возврат:
-        (fig, ax) - кортеж содержащий фигуру и оси или None, если тип данных аргумента не правильный
+        (fig, ax) - кортеж, содержащий фигуру и оси или None, если тип данных аргумента не правильный
     """
     # Проверка на правильный тип данных 
     if not isinstance(count_frequency, pd.Series):
