@@ -1,55 +1,70 @@
-import pandas as p
+import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def creat_chart(count_frequency: p.Series) -> None:
-    """
-    Построение горизонтальной столбчатой диаграммы частоты категориальных значений.
+def generate_synthetic_data() -> pd.DataFrame:
+    """Генерация синтетических данных для категорий.
 
     Аргументы:
-    count_frequency(p.Series): Индексы Series — категории, значения — частота в долях
+        Никаких.
     
     Возврат:
-    Функция отображает график, но не возвращает значения.
+        table (pd.DataFrame) - таблица.
+        """
+    data = {
+        "Colors": ["Blue", "Red", "Green", "Orange", "Red", "Red",
+                   "Red", "Green", "Green", "Blue", "Blue", "Blue"]
+    }
+    
+    # Проверка на то, что словарь не пуст
+    if not data:
+        print("Нет данных")
+        return
+    
+    table = pd.DataFrame(data)
+    
+    return table
+
+
+def create_chart(count_frequency: pd.Series) -> None:
+    """
+    Построение горизонтальной столбчатой диаграммы частоты категориальных значений.
+    
+    Аргументы:
+        count_frequency (pd.Series): Индексы Series — категории, значения — частота в долях.
+    
+    Возврат:
+        tuple: (Figure, Axes)
     """
     # Проверка на правильный тип данных 
-    if not isinstance(count_frequency, p.Series):
+    if not isinstance(count_frequency, pd.Series):
         print("В функцию передан не тот тип данных")
         return
     
-    count_frequency.plot(kind="barh", color="blue", edgecolor="black")
-    plt.title("Частота значений")
-    plt.xlabel("Доля")
-    plt.ylabel("Категория")
-    plt.show()
-
-    return
+    # Создаем фигуру и оси
+    fig, ax = plt.subplots()
+    count_frequency.plot(kind="barh", color="blue", edgecolor="black", ax=ax)
+    ax.set_title("Частота значений")
+    ax.set_xlabel("Доля")
+    ax.set_ylabel("Категория")
+    plt.tight_layout()
+    
+    return fig, ax
 
 
 def main():
     column_name = input("Введите название категории: ")
 
-    # Создание синтетических данных
-    data = {"Colors": 
-            ["Blue", "Red", "Green", "Orange",
-            "Red", "Red", "Red", "Green",
-            "Green", "Blue", "Blue", "Blue"]}
-
+    # Генерация синтетических данных с проверкой на то, пуста ли таблица
+    table = generate_synthetic_data()
+    
     # Проверка на существование категории
-    if column_name not in data.keys():
+    if column_name not in table.keys():
         print("Такой категории нет.")
         return
-    
-    # Проверкана то, что словарь не пуст
-    if not data:
-        print("Нет данных")
-        return
-    
-    # Построение таблицы
-    table = p.DataFrame(data)
 
     # Проверка на то, что таблица не пустая
-    if table.empty:
+    if table.empty or table is None:
         print("Таблица пуста")
         return
     
@@ -66,8 +81,9 @@ def main():
         for category, value in count_frequency.items():
             f.write(f"{category} {value}\n")
 
-    #Построение графика
-    creat_chart(count_frequency)
+    # Построение графика
+    fig, ax = create_chart(count_frequency)
+    plt.show()
 
     return
 
