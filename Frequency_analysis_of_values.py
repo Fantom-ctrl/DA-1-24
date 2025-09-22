@@ -23,6 +23,8 @@ def creat_chart(count_frequency: p.Series) -> None:
     plt.ylabel("Категория")
     plt.show()
 
+    return
+
 
 def main():
     column_name = input("Введите название категории: ")
@@ -61,6 +63,8 @@ def main():
 
     #Построение графика
     creat_chart(count_frequency)
+
+    return
 
 
 if __name__ == "__main__":
